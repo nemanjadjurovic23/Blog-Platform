@@ -15,6 +15,7 @@ class ArticleController extends Controller
         return view('welcome', compact('articles'));
     }
 
+    // ????
     public function articles()
     {
         $blogArticles = Article::all();
@@ -22,6 +23,7 @@ class ArticleController extends Controller
         return view('blog', compact('blogArticles'));
     }
 
+    // ????
     public function allArticles()
     {
         $allArticles = Article::all();

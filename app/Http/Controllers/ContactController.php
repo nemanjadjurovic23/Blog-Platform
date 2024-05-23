@@ -15,18 +15,18 @@ class ContactController extends Controller
     public function sendMessage(Request $request)
     {
         $request->validate([
-           'email' => 'string|required',
-           'subject' => 'string|required',
-           'message' => 'string|required',
+            'email' => 'string|required',
+            'subject' => 'string|required',
+            'message' => 'string|required',
         ]);
 
-         Contact::create([
+        Contact::create([
             'email' => $request->get('email'),
             'subject' => $request->get('subject'),
             'message' => $request->get('message'),
         ]);
 
-         return redirect('/');
+        return redirect('/');
     }
 
     public function allContacts()
@@ -63,9 +63,9 @@ class ContactController extends Controller
     public function updateContact(Request $request, $contact)
     {
         $request->validate([
-           'email' => 'string|required',
-           'subject' => 'string|required',
-           'message' => 'string|required',
+            'email' => 'string|required',
+            'subject' => 'string|required',
+            'message' => 'string|required',
         ]);
 
         $contactToUpdate = Contact::findOrFail($contact);
@@ -77,5 +77,4 @@ class ContactController extends Controller
 
         return redirect("/admin/all-contacts");
     }
-
 }

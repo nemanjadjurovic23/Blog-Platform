@@ -1,6 +1,6 @@
 <html>
 <head>
-    @section("title", "Homepage")
+    @section("title", "Dashboardpage")
 </head>
 <body>
 @extends("layout")
@@ -16,7 +16,8 @@
                             <p class="m-2">{{$article->content}}</p>
                             <h5 class="m-2">{{$article->author}}</h5>
                         </div>
-                        <button class="btn btn-primary mt-2">View More</button>
+                        <a class="btn btn-primary mt-2">View More</a>
+                        <a class="btn btn-primary mt-2"><i class="fa-regular fa-heart"></i></a>
                     </div>
                 @endforeach
             </div>

@@ -2,23 +2,27 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ArticleController::class, 'index']);
-Route::get('/blog', [ArticleController::class, 'articles']);
-Route::view('/about', 'about');
+Route::get('/', [ArticleController::class, 'index'])->name('blog.index');
+Route::view('/about','about')->name('blog.about');
+Route::get('/blog', [ArticleController::class, 'articles'])->name('blog.articles');
+Route::get('/articles', [ArticleController::class, 'show'])->name('blog.article');
+Route::get('/contact', [ContactController::class, 'index'])->name('blog.contact');
 
-Route::get('/contact', [ContactController::class, 'index']);
-Route::post('/send-message', [ContactController::class, 'sendMessage']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/all-contacts', [ContactController::class, 'allContacts']);
-Route::get('/admin/delete-contact/{id}', [ContactController::class, 'deleteContact']);
-Route::get('/admin/edit-contact/{id}', [ContactController::class, 'editContact']);
-Route::put('/admin/update-contact/{id}', [ContactController::class, 'updateContact']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/admin/all-articles', [ArticleController::class, 'allArticles'])->name('articles');
-Route::get('/admin/delete-article/{id}', [ArticleController::class, 'deleteArticle']);
-Route::get('/admin/edit-article/{id}', [ArticleController::class, 'editArticle']);
-Route::put('/admin/update-article/{id}', [ArticleController::class, 'updateArticle']);
-Route::post('/admin/add-article', [ArticleController::class, 'addArticle']);
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/articles', [ArticleController::class, 'articles'])->name('allArticles');
+});
 
+require __DIR__.'/auth.php';
