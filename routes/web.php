@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ArticleController::class, 'index'])->name('blog.index');
@@ -21,8 +22,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
     Route::get('/articles', [ArticleController::class, 'articles'])->name('allArticles');
+    Route::post('/articles/edit', [ArticleController::class, 'editArticles'])->name('editArticles');
+    Route::post('/articles/add', [ArticleController::class, 'addArticles'])->name('addArticles');
+
+    Route::post('/contacts/edit', [ContactController::class, 'editContacts'])->name('editContacts');
+    Route::post('/contacts/send', [ContactController::class, 'sendContacts'])->name('sendContacts');
+    Route::get('/contacts/all', [ContactController::class, 'allContacts'])->name('allContacts');
 });
 
 require __DIR__.'/auth.php';
