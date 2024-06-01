@@ -27,8 +27,10 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
     Route::post('/articles/edit', [ArticleController::class, 'editArticles'])->name('editArticles');
     Route::post('/articles/add', [ArticleController::class, 'addArticles'])->name('addArticles');
 
-    Route::post('/contacts/edit', [ContactController::class, 'editContacts'])->name('editContacts');
+    Route::get('/contacts/edit/{singleContact}', [ContactController::class, 'editContact'])->name('editContact');
+    Route::put('/contacts/update/{singleContact}', [ContactController::class, 'updateContact'])->name('updateContact');
     Route::post('/contacts/send', [ContactController::class, 'sendContacts'])->name('sendContacts');
+    Route::get('/contacts/delete/{contact}', [ContactController::class, 'deleteContact'])->name('deleteContact');
     Route::get('/contacts/all', [ContactController::class, 'allContacts'])->name('allContacts');
 });
 

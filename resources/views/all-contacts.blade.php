@@ -25,8 +25,8 @@
                         <td>{{ $contact->subject }}</td>
                         <td>{{ $contact->message }}</td>
                         <td>
-                            <a href="/admin/delete-contact/{{ $contact->id }}" class="btn btn-danger">Delete</a>
-                            <a href="/admin/edit-contact/{{ $contact->id }}" class="btn btn-success">Edit</a>
+                            <a href="/admin/contacts/delete/{{ $contact->id }}" class="btn btn-danger">Delete</a>
+                            <a href="/admin/contacts/edit/{{ $contact->id }}" class="btn btn-success">Edit</a>
                         </td>
                     </tr>
                 @endforeach

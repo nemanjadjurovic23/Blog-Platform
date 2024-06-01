@@ -12,7 +12,7 @@ class ContactController extends Controller
         return view('contact');
     }
 
-    public function sendMessage(Request $request)
+    public function sendContacts(Request $request)
     {
         $request->validate([
             'email' => 'string|required',
@@ -46,35 +46,23 @@ class ContactController extends Controller
 
         $singleContact->delete();
 
-        return redirect('/admin/all-contacts');
+        return redirect()->route('allContacts');
     }
 
-    public function editContact($contact)
+    public function editContact(Contact $singleContact)
     {
-        $singleContact = Contact::where(['id' => $contact])->first();
-
-        if ($singleContact == null) {
-            die('Contact not found');
-        }
-
-        return view('edit-contact', compact('singleContact'));
+        return view('admin/edit-contact', compact('singleContact'));
     }
 
-    public function updateContact(Request $request, $contact)
+    public function updateContact(Request $request, Contact $singleContact)
     {
-        $request->validate([
-            'email' => 'string|required',
-            'subject' => 'string|required',
-            'message' => 'string|required',
-        ]);
 
-        $contactToUpdate = Contact::findOrFail($contact);
-        $contactToUpdate->update([
+        $singleContact->update([
             'email' => $request->get('email'),
             'subject' => $request->get('subject'),
             'message' => $request->get('message'),
         ]);
 
-        return redirect("/admin/all-contacts");
+        return redirect()->route('allContacts')->with('success', 'Contact updated successfully');
     }
 }
