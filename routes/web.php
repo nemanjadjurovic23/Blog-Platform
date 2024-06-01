@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ArticleController::class, 'index'])->name('blog.index');
 Route::view('/about','about')->name('blog.about');
-Route::get('/blog', [ArticleController::class, 'articles'])->name('blog.articles');
-Route::get('/articles', [ArticleController::class, 'show'])->name('blog.article');
+Route::get('/blog', [ArticleController::class, 'blog'])->name('blog.articles');
 Route::get('/contact', [ContactController::class, 'index'])->name('blog.contact');
 
 Route::get('/dashboard', function () {
@@ -23,8 +22,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
-    Route::get('/articles', [ArticleController::class, 'articles'])->name('allArticles');
-    Route::post('/articles/edit', [ArticleController::class, 'editArticles'])->name('editArticles');
+    Route::get('/articles/all', [ArticleController::class, 'allArticles'])->name('allArticles');
+    Route::get('/articles/edit/{singleArticle}', [ArticleController::class, 'editArticle'])->name('editArticle');
+    Route::put('/articles/update/{singleArticle}', [ArticleController::class, 'updateArticle'])->name('updateArticle');
+    Route::get('/articles/delete/{singleArticle}', [ArticleController::class, 'deleteArticle'])->name('deleteArticle');
     Route::post('/articles/add', [ArticleController::class, 'addArticles'])->name('addArticles');
 
     Route::get('/contacts/edit/{singleContact}', [ContactController::class, 'editContact'])->name('editContact');

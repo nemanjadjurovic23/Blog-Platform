@@ -11,7 +11,7 @@
         <h4 class="mt-4">Edit Article</h4>
         <div class="row mt-4 justify-content-center">
 
-            <form method="POST" action="/admin/update-article/{{ $singleArticle->id }}">
+            <form method="POST" action="/admin/articles/update/{{ $singleArticle->id }}">
                 @csrf
                 @method('PUT')
                 <div class="form-group mt-2">
@@ -19,9 +19,6 @@
                 </div>
                 <div class="form-group mt-2">
                     <input type="text" class="form-control" name="content" required value="{{ $singleArticle->content }}">
-                </div>
-                <div class="form-group mt-2">
-                    <input type="text" class="form-control" name="author" required value="{{ $singleArticle->author }}">
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Save</button>
             </form>

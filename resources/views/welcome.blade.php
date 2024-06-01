@@ -14,7 +14,7 @@
                         <div class="card">
                             <h3 class="m-2">{{$article->title}}</h3>
                             <p class="m-2">{{$article->content}}</p>
-                            <h5 class="m-2">{{$article->author}}</h5>
+                            <h6 class="m-2">Author: {{$article->user->name}}</h6>
                         </div>
                         <a class="btn btn-primary mt-2">View More</a>
                         <a class="btn btn-primary mt-2"><i class="fa-regular fa-heart"></i></a>

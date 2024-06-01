@@ -33,7 +33,7 @@ class ContactController extends Controller
     {
         $allContacts = Contact::all();
 
-        return view('all-contacts', compact('allContacts'));
+        return view('/admin/all-contacts', compact('allContacts'));
     }
 
     public function deleteContact($contact)

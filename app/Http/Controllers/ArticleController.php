@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -15,79 +16,63 @@ class ArticleController extends Controller
         return view('welcome', compact('articles'));
     }
 
-    // ????
-    public function articles()
+    public function blog()
     {
-        $blogArticles = Article::all();
+        $allArticles = Article::all();
 
-        return view('blog', compact('blogArticles'));
+        return view('blog', compact('allArticles'));
     }
 
-    // ????
     public function allArticles()
     {
         $allArticles = Article::all();
 
-        return view('articles', compact('allArticles'));
+        return view('admin/all-articles', compact('allArticles'));
     }
 
-    public function deleteArticle($article)
+    public function deleteArticle($singleArticle)
     {
-        $singleArticle = Article::where(['id' => $article])->first();
+        $singleArticle = Article::where(['id' => $singleArticle])->first();
 
-        if ($singleArticle == null) {
-            die("Article not found");
+        if($singleArticle == null) {
+            die('Article not found');
         }
 
         $singleArticle->delete();
 
-        return redirect()->route('articles');
+        return redirect()->route('allArticles');
     }
 
-    public function addArticle(Request $request)
+    public function addArticles(Request $request, Article $singleArticle)
     {
-        $request->validate([
-           'title' => 'required',
-           'content' => 'required',
-           'author' => 'required',
-        ]);
+        $user = Auth::user();
 
-        Article::create([
-           'title' => $request->get('title'),
-            'content' => $request->get('content'),
-            'author' => $request->get('author'),
-        ]);
-
-        return redirect()->route('articles');
-    }
-
-    public function editArticle($article)
-    {
-        $singleArticle = Article::where(['id' => $article])->first();
-
-        if ($singleArticle == null) {
-            die('Article not found');
+        if ($user == null) {
+            return redirect()->route('login')->with('error', 'Please login to add article');
         }
 
-        return view('edit-article', compact('singleArticle'));
-    }
-
-    public function updateArticle(Request $request, $article)
-    {
-        $request->validate([
-           'title' => 'required',
-           'content' => 'required',
-           'author' => 'required',
-        ]);
-
-        $articleToUpdate = Article::findOrFail($article);
-        $articleToUpdate->update([
+        $singleArticle->create([
+            'user_id' => $user->id,
             'title' => $request->get('title'),
             'content' => $request->get('content'),
-            'author' => $request->get('author'),
         ]);
 
-        return redirect('/admin/all-articles');
+        return redirect()->route('blog.articles');
+    }
+
+    public function editArticle(Article $singleArticle)
+    {
+        return view('admin/edit-article', compact('singleArticle'));
+    }
+
+    public function updateArticle(Request $request, Article $singleArticle)
+    {
+        $singleArticle->update([
+            'title' => $request->get('title'),
+            'content' => $request->get('content'),
+        ]);
+
+        return redirect()->route('allArticles');
     }
 
 }
