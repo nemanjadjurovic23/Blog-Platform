@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
@@ -24,6 +25,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
+
+    Route::controller(AdminController::class)->prefix('admin')->group(function () {
+        Route::get('/panel', 'index')->name('admin.panel');
+        Route::get('/panel', 'allArticles')->name('admin.panel');
+    });
 
     Route::controller(ArticleController::class)->prefix('/articles')->name('articles.')->group(function (){
         Route::get('/all', 'allArticles')->name('all');

@@ -24,10 +24,7 @@
                 @if(Auth::check())
                     @if(Auth::user()->role == 'admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contacts.all') }}">Admin Contacts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('articles.all') }}">Admin Articles</a>
+                            <a class="nav-link" href="{{ route('admin.panel') }}">Admin Panel</a>
                         </li>
                     @endif
                     <li class="nav-item">
