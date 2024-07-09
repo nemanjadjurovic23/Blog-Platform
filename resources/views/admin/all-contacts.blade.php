@@ -25,8 +25,8 @@
                         <td>{{ $contact->subject }}</td>
                         <td>{{ $contact->message }}</td>
                         <td>
-                            <a href="/admin/contacts/delete/{{ $contact->id }}" class="btn btn-danger">Delete</a>
-                            <a href="/admin/contacts/edit/{{ $contact->id }}" class="btn btn-success">Edit</a>
+                            <a href="{{ route('contacts.delete', ['singleContact' => $contact->id]) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('contacts.edit', ['singleContact' => $contact->id]) }}" class="btn btn-success">Edit</a>
                         </td>
                     </tr>
                 @endforeach

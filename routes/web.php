@@ -24,17 +24,22 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
-    Route::get('/articles/all', [ArticleController::class, 'allArticles'])->name('allArticles');
-    Route::get('/articles/edit/{singleArticle}', [ArticleController::class, 'editArticle'])->name('editArticle');
-    Route::put('/articles/update/{singleArticle}', [ArticleController::class, 'updateArticle'])->name('updateArticle');
-    Route::get('/articles/delete/{singleArticle}', [ArticleController::class, 'deleteArticle'])->name('deleteArticle');
-    Route::post('/articles/add', [ArticleController::class, 'addArticles'])->name('addArticles');
 
-    Route::get('/contacts/edit/{singleContact}', [ContactController::class, 'editContact'])->name('editContact');
-    Route::put('/contacts/update/{singleContact}', [ContactController::class, 'updateContact'])->name('updateContact');
-    Route::post('/contacts/send', [ContactController::class, 'sendContacts'])->name('sendContacts');
-    Route::get('/contacts/delete/{contact}', [ContactController::class, 'deleteContact'])->name('deleteContact');
-    Route::get('/contacts/all', [ContactController::class, 'allContacts'])->name('allContacts');
+    Route::controller(ArticleController::class)->prefix('/articles')->name('articles.')->group(function (){
+        Route::get('/all', 'allArticles')->name('all');
+        Route::get('/edit/{singleArticle}','editArticle')->name('edit');
+        Route::put('/update/{singleArticle}', 'updateArticle')->name('update');
+        Route::get('/delete/{singleArticle}', 'deleteArticle')->name('delete');
+        Route::post('/add','addArticles')->name('add');
+    });
+
+    Route::controller(ContactController::class)->prefix('/contacts')->name('contacts.')->group(function (){
+        Route::get('/contacts/edit/{singleContact}', 'editContact')->name('edit');
+        Route::put('/contacts/update/{singleContact}', 'updateContact')->name('update');
+        Route::post('/contacts/send', 'sendContacts')->name('send');
+        Route::get('/contacts/delete/{singleContact}', 'deleteContact')->name('delete');
+        Route::get('/contacts/all','allContacts')->name('all');
+    });
 });
 
 require __DIR__.'/auth.php';

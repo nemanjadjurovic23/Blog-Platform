@@ -42,8 +42,8 @@
                     <td>{{ $article->content }}</td>
                     <td>{{ $article->user->name }}</td>
                     <td>
-                        <a href="/admin/articles/delete/{{ $article->id }}" class="btn btn-danger mb-2">Delete</a>
-                        <a href="/admin/articles/edit/{{ $article->id }}" class="btn btn-success">Edit</a>
+                        <a href="{{ route('articles.delete', ['singleArticle' => $article->id]) }}" class="btn btn-danger mb-2">Delete</a>
+                        <a href="{{ route('articles.edit', ['singleArticle' => $article->id]) }}" class="btn btn-success">Edit</a>
                     </td>
                 </tr>
             @endforeach

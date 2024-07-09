@@ -7,7 +7,7 @@
 
 @section("MainSection")
     <div class="container mt-4 flex-grow-1">
-        <form action="{{ route('sendContacts') }}" method="POST">
+        <form action="{{ route('contacts.send') }}" method="POST">
             @csrf
             <div class="row justify-content-center">
                 <div class="col-md-8">

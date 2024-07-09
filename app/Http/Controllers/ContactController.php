@@ -46,7 +46,7 @@ class ContactController extends Controller
 
         $singleContact->delete();
 
-        return redirect()->route('allContacts');
+        return redirect()->route('contacts.all');
     }
 
     public function editContact(Contact $singleContact)
@@ -56,13 +56,12 @@ class ContactController extends Controller
 
     public function updateContact(Request $request, Contact $singleContact)
     {
-
         $singleContact->update([
             'email' => $request->get('email'),
             'subject' => $request->get('subject'),
             'message' => $request->get('message'),
         ]);
 
-        return redirect()->route('allContacts')->with('success', 'Contact updated successfully');
+        return redirect()->route('contacts.all')->with('success', 'Contact updated successfully');
     }
 }

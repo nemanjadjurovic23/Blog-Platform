@@ -11,7 +11,7 @@
         <h4 class="mt-4">Edit Contact</h4>
         <div class="row mt-4 justify-content-center">
 
-            <form method="POST" action="/admin/contacts/update/{{ $singleContact->id }}">
+            <form method="POST" action="{{ route('contacts.update', ['singleContact' => $singleContact->id]) }}">
                 @csrf
                 @method('PUT')
                 <div class="form-group mt-2">

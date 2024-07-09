@@ -40,7 +40,7 @@ class ArticleController extends Controller
 
         $singleArticle->delete();
 
-        return redirect()->route('allArticles');
+        return redirect()->route('articles.all');
     }
 
     public function addArticles(Request $request, Article $singleArticle)
@@ -72,7 +72,7 @@ class ArticleController extends Controller
             'content' => $request->get('content'),
         ]);
 
-        return redirect()->route('allArticles');
+        return redirect()->route('articles.all');
     }
 
 }

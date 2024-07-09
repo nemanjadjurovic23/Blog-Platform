@@ -11,7 +11,7 @@
         <h4 class="mt-4">Edit Article</h4>
         <div class="row mt-4 justify-content-center">
 
-            <form method="POST" action="/admin/articles/update/{{ $singleArticle->id }}">
+            <form method="POST" action="{{ route('articles.update', ['singleArticle' => $singleArticle->id]) }}">
                 @csrf
                 @method('PUT')
                 <div class="form-group mt-2">
