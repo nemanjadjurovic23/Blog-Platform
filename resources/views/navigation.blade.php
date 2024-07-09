@@ -5,23 +5,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            @if(Auth::check())
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('blog.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('blog.about') }}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('blog.articles') }}">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('blog.contact') }}">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.edit') }}">Profile</a>
-                    </li>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('blog.index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('blog.about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('blog.articles') }}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('blog.contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">Profile</a>
+                </li>
+                @if(Auth::check())
                     @if(Auth::user()->role == 'admin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('allContacts') }}">Admin Contacts</a>
@@ -30,29 +30,18 @@
                             <a class="nav-link" href="{{ route('allArticles') }}">Admin Articles</a>
                         </li>
                     @endif
-                </ul>
-            @else
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('blog.index') }}">Home</a>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('blog.about') }}">About</a>
+                        <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('blog.articles') }}">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('blog.contact') }}">Contact</a>
-                    </li>
+                @else
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>
-                </ul>
-            @endif
+                @endif
+            </ul>
         </div>
     </div>
 </nav>

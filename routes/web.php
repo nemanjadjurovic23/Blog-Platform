@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,7 @@ Route::get('/', [ArticleController::class, 'index'])->name('blog.index');
 Route::view('/about','about')->name('blog.about');
 Route::get('/blog', [ArticleController::class, 'blog'])->name('blog.articles');
 Route::get('/contact', [ContactController::class, 'index'])->name('blog.contact');
+Route::get('/logout', [LoginController::class, 'logout'])->name('blog.logout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
