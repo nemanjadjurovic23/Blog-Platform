@@ -11,7 +11,7 @@
 
         <h4 class="mt-4">Add Article</h4>
         <div class="row mt-4 justify-content-center">
-            <form method="POST" action="/admin/articles/add" class="col-md-12">
+            <form method="POST" action="{{ route('articles.add') }}" class="col-md-12">
                 @csrf
                 <div class="form-group mt-2">
                     <input type="text" class="form-control" name="title" placeholder="Add title" value="{{ old('title') }}">

@@ -30,16 +30,9 @@ class ArticleController extends Controller
         return view('admin/all-articles', compact('allArticles'));
     }
 
-    public function deleteArticle($singleArticle)
+    public function deleteArticle(Article $singleArticle)
     {
-        $singleArticle = Article::where(['id' => $singleArticle])->first();
-
-        if($singleArticle == null) {
-            die('Article not found');
-        }
-
         $singleArticle->delete();
-
         return redirect()->route('articles.all');
     }
 
