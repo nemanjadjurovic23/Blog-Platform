@@ -18,7 +18,7 @@ class ArticleController extends Controller
 
     public function blog()
     {
-        $allArticles = Article::all();
+        $allArticles = Article::paginate(4);
 
         return view('blog', compact('allArticles'));
     }
