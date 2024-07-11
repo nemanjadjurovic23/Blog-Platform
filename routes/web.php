@@ -31,7 +31,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
         Route::get('/panel', 'index')->name('panel');
     });
 
-    Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
+    Route::controller(UserController::class)->prefix('users')->as('users.')->group(function () {
         Route::get('/all', 'allUsers')->name('all');
         Route::post('/add', 'addUser')->name('add');
         Route::get('/delete/{singleUser}', 'deleteUser')->name('delete');
@@ -39,7 +39,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
         Route::put('/update/{singleUser}', 'updateUser')->name('update');
     });
 
-    Route::controller(ArticleController::class)->prefix('/articles')->name('articles.')->group(function (){
+    Route::controller(ArticleController::class)->prefix('/articles')->as('articles.')->group(function (){
         Route::get('/all', 'allArticles')->name('all');
         Route::get('/edit/{singleArticle}','editArticle')->name('edit');
         Route::put('/update/{singleArticle}', 'updateArticle')->name('update');
@@ -47,7 +47,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group
         Route::post('/add','addArticles')->name('add');
     });
 
-    Route::controller(ContactController::class)->prefix('/contacts')->name('contacts.')->group(function (){
+    Route::controller(ContactController::class)->prefix('/contacts')->as('contacts.')->group(function (){
         Route::get('/contacts/edit/{singleContact}', 'editContact')->name('edit');
         Route::put('/contacts/update/{singleContact}', 'updateContact')->name('update');
         Route::post('/contacts/send', 'sendContacts')->name('send');

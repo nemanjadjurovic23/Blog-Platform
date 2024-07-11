@@ -16,6 +16,9 @@
                         <a class="nav-link" href="{{ route('contacts.all') }}">Contacts</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('articles.all') }}">Articles</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.all') }}">Users</a>
                     </li>
                 </ul>
