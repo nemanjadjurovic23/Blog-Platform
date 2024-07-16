@@ -20,7 +20,7 @@ class CommentsModel extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function articles()
+    public function article()
     {
         return $this->belongsTo(Article::class);
     }

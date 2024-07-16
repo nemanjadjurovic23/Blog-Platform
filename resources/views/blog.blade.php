@@ -1,12 +1,6 @@
-<head>
-    @section("title", "Blog")
-</head>
-
-<body>
 @extends("layout")
 @section('MainSection')
     @foreach($allArticles as $article)
-
         <section>
             <div class="container mt-4">
                 <div class="row d-flex justify-content-center">
@@ -33,47 +27,44 @@
                                 </p>
 
                                 <div class="small d-flex justify-content-start">
-                                    <a href="#!" class="d-flex align-items-center me-3">
-                                        <i class="far fa-thumbs-up me-2"></i>
-                                        <p class="mb-0">Like</p>
-                                    </a>
-                                    <a href="#!" class="d-flex align-items-center me-3">
+                                    <a href="#">
                                         <i class="far fa-comment-dots me-2"></i>
-                                        <p class="mb-0">Comment</p>
+                                        <p class="mb-0">Comments</p>
                                     </a>
+                                </div>
+
+                                <div id="comments-{{ $article->id }}" class="comments-section mt-4" style="display: none;">
                                 </div>
                             </div>
                             <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                                <div class="d-flex flex-start w-100">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                         src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="avatar"
-                                         width="40"
-                                         height="40"/>
-                                    <div data-mdb-input-init class="form-outline w-100">
-                <textarea class="form-control" id="textAreaExample" rows="4"
-                          style="background: #fff;"></textarea>
-                                        <label class="form-label" for="textAreaExample">Message</label>
+                                <form action="{{ route('comment.store') }}" method="POST">
+                                    @csrf
+                                    <div class="d-flex flex-start w-100">
+                                        <img class="rounded-circle shadow-1-strong me-3"
+                                             src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="avatar"
+                                             width="40"
+                                             height="40"/>
+                                        <div class="form-outline w-100">
+                                            <textarea class="form-control" id="comment" name="comment" rows="4" required
+                                                      style="background: #fff;"></textarea>
+                                            <label class="form-label" for="comment">Message</label>
+                                            <input type="hidden" name="article_id" value="{{ $article->id }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="float-end mt-2 pt-1">
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-primary btn-sm">Post comment
-                                    </button>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-outline-primary btn-sm">Cancel
-                                    </button>
-                                </div>
+                                    <div class="float-end mt-2 pt-1">
+                                        <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @endforeach
-            <div class="mt-4 d-flex justify-content-center">
-                {{ $allArticles->links('pagination::bootstrap-4') }}
-            </div>
         </section>
-
-</body>
+    @endforeach
+    <div class="mt-4 d-flex justify-content-center">
+        {{ $allArticles->links('pagination::bootstrap-4') }}
+    </div>
 @endsection
+
