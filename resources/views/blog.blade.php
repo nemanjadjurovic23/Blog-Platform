@@ -27,7 +27,7 @@
                                 </p>
 
                                 <div class="small d-flex justify-content-start">
-                                    <a href="#">
+                                    <a href="{{ route('comment.show', ['articleId' => $article->id]) }}">
                                         <i class="far fa-comment-dots me-2"></i>
                                         <p class="mb-0">Comments</p>
                                     </a>

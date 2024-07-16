@@ -17,6 +17,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('blog.contact'
 Route::get('/logout', [LoginController::class, 'logout'])->name('blog.logout');
 
 Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
+Route::get('/comment/show/{articleId}', [CommentController::class, 'show'])->name('comment.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
