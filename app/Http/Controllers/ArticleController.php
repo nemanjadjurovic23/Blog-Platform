@@ -12,21 +12,18 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::latest()->take(4)->get();
-
         return view('welcome', compact('articles'));
     }
 
     public function blog()
     {
         $allArticles = Article::paginate(4);
-
         return view('blog', compact('allArticles'));
     }
 
     public function allArticles()
     {
         $allArticles = Article::all();
-
         return view('admin/all-articles', compact('allArticles'));
     }
 

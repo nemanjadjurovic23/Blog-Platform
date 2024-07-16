@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SendContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
@@ -12,14 +13,8 @@ class ContactController extends Controller
         return view('contact');
     }
 
-    public function sendContacts(Request $request)
+    public function sendContacts(SendContactRequest $request)
     {
-        $request->validate([
-            'email' => 'string|required',
-            'subject' => 'string|required',
-            'message' => 'string|required',
-        ]);
-
         Contact::create([
             'email' => $request->get('email'),
             'subject' => $request->get('subject'),
@@ -32,20 +27,12 @@ class ContactController extends Controller
     public function allContacts()
     {
         $allContacts = Contact::all();
-
         return view('/admin/all-contacts', compact('allContacts'));
     }
 
-    public function deleteContact($contact)
+    public function deleteContact(Contact $singleContact)
     {
-        $singleContact = Contact::where(['id' => $contact])->first();
-
-        if ($singleContact == null) {
-            die('Contact not found');
-        }
-
         $singleContact->delete();
-
         return redirect()->route('contacts.all');
     }
 
