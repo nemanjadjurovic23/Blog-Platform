@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SendContactRequest;
 use App\Models\Contact;
+use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+
+    private $contactRepository;
+
+    public function __construct()
+    {
+        $this->contactRepository = new ContactRepository();
+    }
     public function index()
     {
         return view('contact');
@@ -15,13 +23,8 @@ class ContactController extends Controller
 
     public function sendContacts(SendContactRequest $request)
     {
-        Contact::create([
-            'email' => $request->get('email'),
-            'subject' => $request->get('subject'),
-            'message' => $request->get('message'),
-        ]);
-
-        return redirect('/');
+        $this->contactRepository->createContact($request);
+        return redirect()->route('/');
     }
 
     public function allContacts()
@@ -43,11 +46,7 @@ class ContactController extends Controller
 
     public function updateContact(Request $request, Contact $singleContact)
     {
-        $singleContact->update([
-            'email' => $request->get('email'),
-            'subject' => $request->get('subject'),
-            'message' => $request->get('message'),
-        ]);
+        $this->contactRepository->updateContact($request, $singleContact);
 
         return redirect()->route('contacts.all')->with('success', 'Contact updated successfully');
     }

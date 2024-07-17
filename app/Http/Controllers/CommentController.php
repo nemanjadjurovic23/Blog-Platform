@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\CommentsModel;
+use App\Repositories\CommentRepository;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, CommentsModel $comment)
+    private $commentRepository;
+
+    public function __construct()
     {
-        $comment::create([
-            'user_id' => Auth::id(),
-            'article_id' => $request->get('article_id'),
-            'content' => $request->get('comment'),
-        ]);
+        $this->commentRepository = new CommentRepository();
+    }
+    public function store(CommentsModel $comment, CommentRequest $request)
+    {
+        $this->commentRepository->createComment($comment, $request);
 
         return redirect()->back();
     }

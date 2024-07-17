@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
 
+    private $articleRepository;
+
+    public function __construct()
+    {
+        $this->articleRepository = new ArticleRepository();
+    }
     public function index()
     {
         $articles = Article::latest()->take(4)->get();
@@ -41,11 +48,7 @@ class ArticleController extends Controller
             return redirect()->route('login')->with('error', 'Please login to add article');
         }
 
-        $singleArticle->create([
-            'user_id' => $user->id,
-            'title' => $request->get('title'),
-            'content' => $request->get('content'),
-        ]);
+        $this->articleRepository->createArticle($singleArticle, $request, $user);
 
         return redirect()->route('blog.articles');
     }
@@ -55,13 +58,9 @@ class ArticleController extends Controller
         return view('admin/edit-article', compact('singleArticle'));
     }
 
-    public function updateArticle(Request $request, Article $singleArticle)
+    public function updateArticle(Article $singleArticle, Request $request)
     {
-        $singleArticle->update([
-            'title' => $request->get('title'),
-            'content' => $request->get('content'),
-        ]);
-
+        $this->articleRepository->updateArticle($singleArticle, $request);
         return redirect()->route('articles.all');
     }
 }
